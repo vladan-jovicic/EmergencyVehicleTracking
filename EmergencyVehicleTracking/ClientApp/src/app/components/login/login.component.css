@@ -1,0 +1,147 @@
+
+.app-space {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #e3e3e3;
+  color: gray;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.app-space * {
+  box-sizing: border-box;
+}
+
+.app-branding {
+  height: 3.5rem;
+}
+
+.app-login {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 320px;
+}
+
+.app-login h1 {
+  font-size: 1rem;
+  text-align: center;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.app-input {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.app-input input {
+  display: flex;
+  height: 3rem;
+  padding: 0 .75rem 0 3rem;
+  width: 20rem;
+  border-color: transparent;
+  border-radius: 2px;
+  background-color: white;
+  font-size: .875rem;
+}
+
+.app-input input::placeholder {
+  color: #e3e3e3;
+}
+
+.app-login.invalid .app-input input {
+  outline-style: solid;
+  outline-width: 2px;
+  outline-color: #D7242C;
+}
+
+.app-input input:focus {
+  outline-color: #125ea7;
+}
+
+.app-input::before {
+  content: " ";
+  position: absolute;
+  width: 3rem;
+  height: 3rem;
+  display: block;
+  background-position: .75rem center;
+  background-size: 1.25rem;
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23e3e3e3' viewBox='0 0 16 16'%3E%3Cpath d='M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z'/%3E%3C/svg%3E");
+}
+
+.app-input.pass::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23e3e3e3' viewBox='0 0 16 16'%3E%3Cpath d='M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z'/%3E%3C/svg%3E");
+}
+
+.app-action {
+  position: relative;
+  width: 100%;
+}
+
+.app-login-button {
+  display: flex;
+  height: 2.5rem;
+  line-height: 1;
+  justify-content: center;
+  align-items: center;
+  width: 10rem;
+  border-color: transparent;
+  border-radius: 2px;
+  background-color: #125ea7;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: background .15s;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.app-login-button:hover {
+  background-color: gray;
+  transition: background .25s;
+}
+
+.app-login-message {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 3rem;
+  background-color: #FDF3F4;
+  width: 100%;
+  padding: 0 .5rem 0 3.5rem;
+  display: none;
+  font-size: .875rem;
+  color: black;
+}
+
+.app-login-message::before {
+  content: " ";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 3rem;
+  width: 3rem;
+  background-color: #D7242C;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 1.25rem;
+}
+
+.app-login-message.show {
+  display: flex;
+}
+
+.app-version {
+  font-size: .75rem;
+}

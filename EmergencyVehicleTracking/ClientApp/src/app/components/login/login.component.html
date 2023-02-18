@@ -1,0 +1,25 @@
+<div class="app-space">
+
+  <img src="assets/dspace.svg" alt="dSPACE - File Browser" class="app-branding">
+
+  <div class="app-login" [ngClass]="{ invalid : isAlertVisible() }">
+    <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+      <h1>Please login to continue</h1>
+      <div class="app-input">
+        <input type="text" id="username" name="username" formControlName="username" placeholder="Username" required autofocus>
+      </div>
+      <div class="app-input pass">
+        <input type="password" id="password" name="password" formControlName="password" placeholder="password" required>
+      </div>
+      <div class="app-action">
+        <button class="app-login-button" [disabled]="loading || loginForm.invalid">Login</button>
+        <div class="app-login-message" [ngClass]="{ show : isAlertVisible() }">
+          <alert class="txtonly"></alert>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="app-version">version {{version}}</div>
+
+</div>
