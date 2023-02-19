@@ -4,28 +4,16 @@ namespace EmergencyVehicleTracking.DataAccess.Patient;
 
 public class InMemoryPatientRepository : BaseInMemoryRepository<DbPatient>, IPatientRepository
 {
-    protected InMemoryPatientRepository(IMemoryCache memoryCache) : base(memoryCache)
+    public InMemoryPatientRepository(IMemoryCache memoryCache) : base(memoryCache)
     {
-    }
-    
-    public Task<List<DbPatient>> GetAllPatientsAsync()
-    {
-        return Task.FromResult(GetAll());
     }
 
-    public Task<DbPatient> GetByIdAsync(long patientId)
+    protected override List<DbPatient> GetMockData()
     {
-        var cacheData = GetAll();
-        return Task.FromResult(cacheData.Single(i => i.Id == patientId));
-    }
-
-    public Task<DbPatient> InsertAsync(DbPatient patient)
-    {
-        if (Add(patient))
+        return new List<DbPatient>()
         {
-            return Task.FromResult(patient);
-        }
-
-        throw new Exception("Could not add new patient to database.");
+            new() { Id = 1, Address = "Kidriceva 34", City = "Koper", Country = "Slovenija", FirstName = "Peter", LastName = "Novak" },
+            new() { Id = 2, Address = "Dekani 232", City = "Dekani", Country = "Slovenija", FirstName = "Vladan", LastName = "Jovicic" }
+        };
     }
 }

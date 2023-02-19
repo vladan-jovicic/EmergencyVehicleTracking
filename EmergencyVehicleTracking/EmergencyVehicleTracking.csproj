@@ -30,27 +30,43 @@
 
     <ItemGroup>
         <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
+        <None Remove="ClientApp\**" />
     </ItemGroup>
     <ItemGroup>
         <!-- Don't publish the SPA source files, but do show them in the project files list -->
         <Content Remove="$(SpaRoot)**" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+        <Content Remove="ClientApp\**" />
     </ItemGroup>
     <ItemGroup>
       <_ContentIncludedByDefault Remove="Pages\Error.cshtml" />
       <_ContentIncludedByDefault Remove="Pages\Shared\_LoginPartial.cshtml" />
       <_ContentIncludedByDefault Remove="Pages\_ViewImports.cshtml" />
+      <_ContentIncludedByDefault Remove="ClientApp\angular.json" />
+      <_ContentIncludedByDefault Remove="ClientApp\package-lock.json" />
+      <_ContentIncludedByDefault Remove="ClientApp\package.json" />
+      <_ContentIncludedByDefault Remove="ClientApp\tsconfig.app.json" />
+      <_ContentIncludedByDefault Remove="ClientApp\tsconfig.json" />
+      <_ContentIncludedByDefault Remove="ClientApp\tsconfig.spec.json" />
     </ItemGroup>
+    <!--
     <ItemGroup>
       <Folder Include="ClientApp\src\app\components" />
       <Folder Include="ClientApp\src\app\models" />
       <Folder Include="ClientApp\src\app\services" />
     </ItemGroup>
+    -->
     <ItemGroup>
       <ProjectReference Include="..\EmergencyVehicleTracking.DataAccess\EmergencyVehicleTracking.DataAccess.csproj" />
       <ProjectReference Include="..\EmergencyVehicleTracking.Models\EmergencyVehicleTracking.Models.csproj" />
       <ProjectReference Include="..\EmergencyVehicleTracking.Services\EmergencyVehicleTracking.Services.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Remove="ClientApp\**" />
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Remove="ClientApp\**" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

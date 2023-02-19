@@ -1,0 +1,37 @@
+<div class="main">
+  <div class="flist-holder pt-2 px-3">
+    <table class="table table-hover table-sm text-nowrap table-list">
+      <thead>
+      <tr>
+        <th><div><span>First Name</span></div></th>
+        <th><div><span>Last Name</span></div></th>
+        <th><div><span>Driver location (x-coord)</span></div></th>
+        <th><div><span>Driver location (y-coord)</span></div></th>
+        <th><div><span>Driver region perimeter</span></div></th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-container *ngIf="drivers.length == 0"></ng-container>
+      <ng-container *ngIf="drivers.length > 0">
+        <tr *ngFor="let driver of drivers">
+          <td>{{driver.firstName}}</td>
+          <td>{{driver.lastName}}</td>
+          <td>{{driver.location.x}}</td>
+          <td>{{driver.location.y}}</td>
+          <td>{{driver.perimeter}}</td>
+        </tr>
+      </ng-container>
+      <tr>
+        <td><input type="text" [(ngModel)]="newDriver.firstName"></td>
+        <td><input type="text" [(ngModel)]="newDriver.lastName"></td>
+        <td><input type="number" [(ngModel)]="newDriver.location.x"></td>
+        <td><input type="number" [(ngModel)]="newDriver.location.y"></td>
+        <td><input type="number" [(ngModel)]="newDriver.perimeter"></td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="app-action">
+      <button class="app-add-button" (click)="addNewDriver()">Add new</button>
+    </div>
+  </div>
+</div>

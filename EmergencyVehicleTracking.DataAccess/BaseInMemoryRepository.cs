@@ -10,9 +10,16 @@ public class BaseInMemoryRepository<T> where T : DbEntity
     protected BaseInMemoryRepository(IMemoryCache memoryCache)
     {
         _memoryCache = memoryCache ?? throw new ArgumentNullException(nameof(memoryCache));
-        
-        // initialize cache with empty list
-        _memoryCache.Set(GetCacheKey(), new List<T>());
+
+        // initialize cache with mock data
+        var data = GetMockData();
+        _repositorySequence = data.Count + 1;
+        _memoryCache.Set(GetCacheKey(), data);
+    }
+
+    protected virtual List<T> GetMockData()
+    {
+        return new List<T>();
     }
 
     private static string GetCacheKey()
@@ -26,6 +33,7 @@ public class BaseInMemoryRepository<T> where T : DbEntity
         var cacheKey = GetCacheKey();
         return !_memoryCache.TryGetValue(cacheKey, out List<T> data) ? new List<T>() : data;
     }
+
 
     protected bool Add(T item)
     {
@@ -45,5 +53,26 @@ public class BaseInMemoryRepository<T> where T : DbEntity
     {
         _repositorySequence = _repositorySequence + 1;
         return _repositorySequence;
+    }
+
+    public virtual Task<List<T>> GetAllAsync()
+    {
+        return Task.FromResult(GetAll());
+    }
+
+    public virtual Task<T> GetByIdAsync(long id)
+    {
+        var cacheData = GetAll();
+        return Task.FromResult(cacheData.Single(i => i.Id == id));
+    }
+
+    public virtual Task<T> InsertAsync(T item)
+    {
+        if (Add(item))
+        {
+            return Task.FromResult(item);
+        }
+
+        throw new Exception("Could not add new entity to database.");
     }
 }

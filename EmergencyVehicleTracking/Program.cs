@@ -1,19 +1,28 @@
+using EmergencyVehicleTracking.DataAccess.Driver;
 using EmergencyVehicleTracking.DataAccess.Patient;
+using EmergencyVehicleTracking.DataAccess.Vehicle;
+using EmergencyVehicleTracking.Models.Mapper;
 using EmergencyVehicleTracking.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.Extensions.Caching.Memory;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // infrastructure
 builder.Services.AddControllers();
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddSingleton<IMemoryCache, MemoryCache>();
+builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
-// database layer
+// data layer
 builder.Services.AddSingleton<IPatientRepository, InMemoryPatientRepository>();
+builder.Services.AddSingleton<IVehicleRepository, InMemoryVehicleRepository>();
+builder.Services.AddSingleton<IDriverRepository, InMemoryDriverRepository>();
 
 // application layer
 builder.Services.AddSingleton<PatientService>();
+builder.Services.AddSingleton<VehicleService>();
+builder.Services.AddSingleton<DriverService>();
 
 // API versioning
 builder.Services.AddApiVersioning(opts =>
@@ -34,8 +43,6 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseMigrationsEndPoint();
-    
     // Use swagger only in development environment
     app.UseSwagger();
     app.UseSwaggerUI();
@@ -46,18 +53,15 @@ else
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-app.UseAuthentication();
-app.UseAuthorization();
+//app.UseAuthentication();
+//app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
+app.MapControllers();
 
 app.MapFallbackToFile("index.html");
-;
 
 app.Run();

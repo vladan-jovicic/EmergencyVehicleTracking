@@ -17,7 +17,7 @@ public class PatientService
 
     public async Task<List<PatientDto>> GetAllPatientsAsync()
     {
-        var data = await _patientRepository.GetAllPatientsAsync();
+        var data = await _patientRepository.GetAllAsync();
         return data.Select(i => _mapper.Map<PatientDto>(i)).ToList();
     }
 

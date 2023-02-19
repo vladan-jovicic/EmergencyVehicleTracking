@@ -1,6 +1,6 @@
 ﻿namespace EmergencyVehicleTracking.Models;
 
-public class PatientDto
+public class PatientDto : BaseDto
 {
     public long Id { get; set; }
     public string? FirstName { get; set; }
