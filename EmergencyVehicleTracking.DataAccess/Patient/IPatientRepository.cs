@@ -3,5 +3,6 @@
 public interface IPatientRepository
 {
     Task<List<DbPatient>> GetAllPatientsAsync();
-    Task<DbPatient> GetByIdAsync();
+    Task<DbPatient> GetByIdAsync(long id);
+    Task<DbPatient> InsertAsync(DbPatient patient);
 }

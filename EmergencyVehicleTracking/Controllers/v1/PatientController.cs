@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EmergencyVehicleTracking.Models;
+using EmergencyVehicleTracking.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EmergencyVehicleTracking.Controllers.v1;
 
@@ -7,13 +9,15 @@ namespace EmergencyVehicleTracking.Controllers.v1;
 [ApiVersion("1")]
 public class PatientController : ControllerBase
 {
-    public PatientController()
+    private readonly PatientService _patientService;
+    public PatientController(PatientService patientService)
     {
+        _patientService = patientService ?? throw new ArgumentNullException(nameof(patientService));
     }
 
     [HttpGet]
-    public async Task<ActionResult<bool>> GetAll()
+    public async Task<ActionResult<List<PatientDto>>> GetAll()
     {
-        throw new NotImplementedException();
+        return await _patientService.GetAllPatientsAsync();
     }
 }

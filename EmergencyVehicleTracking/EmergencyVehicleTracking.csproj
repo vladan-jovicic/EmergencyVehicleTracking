@@ -12,6 +12,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="AutoMapper" Version="12.0.1" />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="6.0.8" />
         <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.8" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.8" />
@@ -44,6 +46,11 @@
       <Folder Include="ClientApp\src\app\components" />
       <Folder Include="ClientApp\src\app\models" />
       <Folder Include="ClientApp\src\app\services" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\EmergencyVehicleTracking.DataAccess\EmergencyVehicleTracking.DataAccess.csproj" />
+      <ProjectReference Include="..\EmergencyVehicleTracking.Models\EmergencyVehicleTracking.Models.csproj" />
+      <ProjectReference Include="..\EmergencyVehicleTracking.Services\EmergencyVehicleTracking.Services.csproj" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

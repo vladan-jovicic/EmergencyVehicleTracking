@@ -1,9 +1,19 @@
+using EmergencyVehicleTracking.DataAccess.Patient;
+using EmergencyVehicleTracking.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// infrastructure
 builder.Services.AddControllers();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+// database layer
+builder.Services.AddSingleton<IPatientRepository, InMemoryPatientRepository>();
+
+// application layer
+builder.Services.AddSingleton<PatientService>();
 
 // API versioning
 builder.Services.AddApiVersioning(opts =>
