@@ -1,29 +1,23 @@
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.EntityFrameworkCore;
-using EmergencyVehicleTracking.Data;
-using EmergencyVehicleTracking.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddControllers();
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+// API versioning
+builder.Services.AddApiVersioning(opts =>
+{
+    opts.DefaultApiVersion = new ApiVersion(1, 0);
+    opts.AssumeDefaultVersionWhenUnspecified = true;
+    opts.ReportApiVersions = true;
+    opts.ApiVersionReader = ApiVersionReader.Combine(new UrlSegmentApiVersionReader(),
+        new HeaderApiVersionReader("x-api-version"),
+        new MediaTypeApiVersionReader("x-api-version"));
+});
 
-builder.Services.AddIdentityServer()
-    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
-
-builder.Services.AddAuthentication()
-    .AddIdentityServerJwt();
-
-builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages();
+// Swagger
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -31,6 +25,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+    
+    // Use swagger only in development environment
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 else
 {
@@ -43,13 +41,11 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthentication();
-app.UseIdentityServer();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
-app.MapRazorPages();
 
 app.MapFallbackToFile("index.html");
 ;

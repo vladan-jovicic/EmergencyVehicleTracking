@@ -5,6 +5,7 @@ import {NavigationStart, Router} from "@angular/router";
 @Injectable({
   providedIn: 'root'
 })
+
 export class AlertService {
   private subject = new Subject<any>();
   private keepAfterRouteChange = false;

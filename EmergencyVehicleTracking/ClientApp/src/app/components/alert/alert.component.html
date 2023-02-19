@@ -1,0 +1,36 @@
+<div *ngIf="message" class="alert-container" [ngClass]="isAlertVisible() ? 'show' : ''">
+  <div [ngClass]="message.cssClass">
+    <span [innerHTML]="message.text"></span>
+    <br>
+    <div class="col-md-12 center-content-text">
+      <div style="margin-bottom: 16px" *ngIf="message.previewcsv">
+        <p class="first-paragraph">
+          <input type="checkbox" id="header" [(ngModel)]="header">
+          <label for="header">Header </label>
+        </p>
+        <div>
+          <p>Select the delimiter of the file:</p>
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-sm btn-secondary" [class.active]="delimiterIndex === 1" (click)="setActive(1, ',')">
+              <input type="radio" name="options" id="option1" autocomplete="off" checked> ,
+            </label>
+            <label class="btn btn-sm btn-secondary" [class.active]="delimiterIndex === 2" (click)="setActive(2, ';')">
+              <input type="radio" name="options" id="option2" autocomplete="off"> ;
+            </label>
+            <label class="btn btn-sm btn-secondary" [class.active]="delimiterIndex === 3" (click)="setActive(3, '|')">
+              <input type="radio" name="options" id="option3" autocomplete="off"> |
+            </label>
+            <label class="btn btn-sm btn-secondary" [class.active]="delimiterIndex === 4" (click)="setActive(4, '')">
+              <input type="radio" name="options" id="option4" autocomplete="off"> Custom
+            </label>
+            <input class="custom-input" [disabled]="delimiterIndex!==4" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" [(ngModel)]="custom" maxlength="1">
+          </div>
+        </div>
+      </div>
+      <span *ngIf="message.type === 'prompt'">
+        <button class="btn btn-sm btn-primary btn-margin-right" (click)="accept()">{{message.yesText}}</button>
+        <button class="btn btn-sm btn-secondary" (click)="reject()">{{message.noText}}</button>
+      </span>
+    </div>
+  </div>
+</div>

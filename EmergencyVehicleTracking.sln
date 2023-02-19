@@ -2,6 +2,12 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmergencyVehicleTracking", "EmergencyVehicleTracking\EmergencyVehicleTracking.csproj", "{7D86BB80-A0A1-43CF-866A-A79661290274}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmergencyVehicleTracking.DataAccess", "EmergencyVehicleTracking.DataAccess\EmergencyVehicleTracking.DataAccess.csproj", "{63B9D76C-9468-4B09-8A59-018E22C918E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmergencyVehicleTracking.Services", "EmergencyVehicleTracking.Services\EmergencyVehicleTracking.Services.csproj", "{5AD9117C-79B1-4DA4-847A-D5C6D9A9A879}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmergencyVehicleTracking.Models", "EmergencyVehicleTracking.Models\EmergencyVehicleTracking.Models.csproj", "{9AC0A72F-E74D-4C89-81CA-16F6E59495ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +18,17 @@ Global
 		{7D86BB80-A0A1-43CF-866A-A79661290274}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D86BB80-A0A1-43CF-866A-A79661290274}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D86BB80-A0A1-43CF-866A-A79661290274}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63B9D76C-9468-4B09-8A59-018E22C918E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63B9D76C-9468-4B09-8A59-018E22C918E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63B9D76C-9468-4B09-8A59-018E22C918E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63B9D76C-9468-4B09-8A59-018E22C918E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AD9117C-79B1-4DA4-847A-D5C6D9A9A879}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AD9117C-79B1-4DA4-847A-D5C6D9A9A879}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AD9117C-79B1-4DA4-847A-D5C6D9A9A879}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AD9117C-79B1-4DA4-847A-D5C6D9A9A879}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AC0A72F-E74D-4C89-81CA-16F6E59495ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AC0A72F-E74D-4C89-81CA-16F6E59495ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AC0A72F-E74D-4C89-81CA-16F6E59495ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AC0A72F-E74D-4C89-81CA-16F6E59495ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

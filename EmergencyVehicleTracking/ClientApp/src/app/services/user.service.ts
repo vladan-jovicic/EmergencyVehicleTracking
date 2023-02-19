@@ -12,15 +12,21 @@ import {tap} from "rxjs/operators";
 export class UserService {
 
   private rootUrl = 'api/users';
-  private userSource: BehaviorSubject<User>;
-  private userStream: Observable<User>;
+  private userSource: BehaviorSubject<User | undefined>;
+  private userStream: Observable<User | undefined>;
 
   private readonly httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
   constructor(private http: HttpClient, private router: Router) {
-    this.userSource = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    const currentUserSerialized = localStorage.getItem('currentUser');
+    if (currentUserSerialized !== undefined && currentUserSerialized != null) {
+      const currentUser = JSON.parse(currentUserSerialized);
+      this.userSource = new BehaviorSubject<User | undefined>(currentUser);
+    } else {
+      this.userSource = new BehaviorSubject<User | undefined>(undefined);
+    }
     this.userStream = this.userSource.asObservable();
 
     if (!this.currentUser) {
@@ -33,7 +39,7 @@ export class UserService {
     }
   }
 
-  get currentUser(): User {
+  get currentUser(): User | undefined {
     return this.userSource.value;
   }
 
