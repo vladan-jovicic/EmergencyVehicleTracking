@@ -44,7 +44,7 @@ export class UserService {
   }
 
   login(login: UserLoginForm): Observable<User> {
-    const authUrl = 'api/authenticate'
+    const authUrl = 'api/v1/Authorize'
     return this.http.post<User>(authUrl, login, this.httpOptions).pipe(
       tap(user => {
         if (user && user.token) {

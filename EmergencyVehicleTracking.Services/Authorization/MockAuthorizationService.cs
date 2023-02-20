@@ -41,13 +41,14 @@ public class MockAuthorizationService : IAuthorizationService
                 return null;
             }
 
-            var token = GetAuthroizationToken(username, authenticatedUser.DisplayName, authenticatedUser.Roles);
+            var token = GetAuthorizationToken(username, authenticatedUser.DisplayName, authenticatedUser.Roles);
 
             return new AuthorizedUser()
             {
                 Token = token,
                 Username = username,
-                DisplayName = authenticatedUser.DisplayName
+                DisplayName = authenticatedUser.DisplayName,
+                Roles = authenticatedUser.Roles
             };
 
         }
@@ -98,7 +99,7 @@ public class MockAuthorizationService : IAuthorizationService
     /// <param name="displayName"></param>
     /// <param name="claims"></param>
     /// <returns></returns>
-    private string GetAuthroizationToken(string username, string displayName, string[] claims)
+    private string GetAuthorizationToken(string username, string displayName, string[] claims)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var securityKey = Encoding.UTF8.GetBytes(_authenticationOptions.JwtSecurityKey);
@@ -109,7 +110,7 @@ public class MockAuthorizationService : IAuthorizationService
                 new Claim(ClaimTypes.Name, username),
                 new Claim(ClaimTypes.GivenName, displayName)
             }),
-            Expires = DateTime.UtcNow.Add(TimeSpan.FromHours(12)),
+            Expires = DateTime.UtcNow.Add(TimeSpan.FromHours(_authenticationOptions.Expiration)),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(securityKey), SecurityAlgorithms.HmacSha256Signature)
         };
 

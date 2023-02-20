@@ -14,6 +14,7 @@ import { PatientComponent } from './components/patient/patient.component';
 import { DriverComponent } from './components/driver/driver.component';
 import { ServerDashboardComponent } from './components/server-dashboard/server-dashboard.component';
 import { PatientRouteComponent } from './components/patient-route/patient-route.component';
+import {ServerGuard} from "./infrastructure/server.guard";
 
 @NgModule({
   declarations: [
@@ -35,12 +36,11 @@ import { PatientRouteComponent } from './components/patient-route/patient-route.
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'dashboard', component: ServerDashboardComponent },
-      { path: 'requests', component: PatientRouteComponent },
-      { path: 'vehicles', component: VehiclesComponent },
-      { path: 'patients', component: PatientComponent },
-      { path: 'drivers', component: DriverComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'dashboard', component: ServerDashboardComponent, canActivate: [ServerGuard]},
+      { path: 'requests', component: PatientRouteComponent, canActivate: [ServerGuard] },
+      { path: 'vehicles', component: VehiclesComponent, canActivate: [ServerGuard] },
+      { path: 'patients', component: PatientComponent, canActivate: [ServerGuard] },
+      { path: 'drivers', component: DriverComponent, canActivate: [ServerGuard] },
       { path: 'login', component: LoginComponent }
     ])
   ],
