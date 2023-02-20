@@ -35,6 +35,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+    if (this.userService.currentUser && this.userService.currentUser.token && this.userService.currentUser.roles) {
+      const uri = this.userService.getUserHomeUrl();
+      this.router.navigate([uri]);
+    }
   }
 
   isAlertVisible() {
@@ -54,7 +58,8 @@ export class LoginComponent implements OnInit {
     const login = this.loginForm.value as UserLoginForm;
     this.userService.login(login).subscribe(
       _ => {
-        this.router.navigate([this.returnUrl]);
+        const homeUri = this.userService.getUserHomeUrl();
+        this.router.navigate([homeUri]);
       },
       _ => {
         this.alertService.error('Error logging in.<br>Please check your credentials.', false, true);

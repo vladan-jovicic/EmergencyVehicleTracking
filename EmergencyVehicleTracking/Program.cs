@@ -1,5 +1,6 @@
 using System.Text;
 using EmergencyVehicleTracking.DataAccess.Driver;
+using EmergencyVehicleTracking.DataAccess.DriverVehicle;
 using EmergencyVehicleTracking.DataAccess.Patient;
 using EmergencyVehicleTracking.DataAccess.Requests;
 using EmergencyVehicleTracking.DataAccess.User;
@@ -13,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,6 +52,7 @@ builder.Services.AddSingleton<IPatientRepository, InMemoryPatientRepository>();
 builder.Services.AddSingleton<IVehicleRepository, InMemoryVehicleRepository>();
 builder.Services.AddSingleton<IDriverRepository, InMemoryDriverRepository>();
 builder.Services.AddSingleton<IPatientRequestRepository, InMemoryPatientRequestRepository>();
+builder.Services.AddSingleton<IDriverVehicleMapRepository, InMemoryDriverVehicleMapRepository>();
 
 // application layer
 builder.Services.AddSingleton<IAuthorizationService, MockAuthorizationService>()
@@ -71,7 +74,33 @@ builder.Services.AddApiVersioning(opts =>
 });
 
 // Swagger
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(setup =>
+{
+    // Include 'SecurityScheme' to use JWT Authentication
+    var jwtSecurityScheme = new OpenApiSecurityScheme
+    {
+        BearerFormat = "JWT",
+        Name = "JWT Authentication",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        Scheme = JwtBearerDefaults.AuthenticationScheme,
+        Description = "Put **_ONLY_** your JWT Bearer token on textbox below!",
+
+        Reference = new OpenApiReference
+        {
+            Id = JwtBearerDefaults.AuthenticationScheme,
+            Type = ReferenceType.SecurityScheme
+        }
+    };
+
+    setup.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
+
+    setup.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        { jwtSecurityScheme, Array.Empty<string>() }
+    });
+
+});
 
 var app = builder.Build();
 

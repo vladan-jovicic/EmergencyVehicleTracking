@@ -1,4 +1,5 @@
-﻿using EmergencyVehicleTracking.Models;
+﻿using EmergencyVehicleTracking.DataAccess.User;
+using EmergencyVehicleTracking.Models;
 using EmergencyVehicleTracking.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +9,7 @@ namespace EmergencyVehicleTracking.Controllers.v1;
 [ApiController]
 [Route("api/v{version:apiVersion}/[controller]")]
 [ApiVersion("1")]
-[Authorize]
+[Authorize(Roles = ApplicationRole.ServerUser)]
 public class VehicleController : ControllerBase
 {
     private readonly VehicleService _vehicleService;

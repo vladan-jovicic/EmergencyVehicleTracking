@@ -12,8 +12,8 @@ public class InMemoryDriverRepository : BaseInMemoryRepository<DbDriver>, IDrive
     {
         return new List<DbDriver>()
         {
-            new() { Id = 1, FirstName = "Pinko", LastName = "Palinko", LocationX = 45, LocationY = 45, Perimeter = 45 },
-            new() { Id = 2, FirstName = "John", LastName = "Doe", LocationX = 100, LocationY = 100, Perimeter = 50 }
+            new() { Id = 1, FirstName = "Pinko", LastName = "Palinko", LocationX = 45, LocationY = 45, Perimeter = 45, UserId = 2},
+            new() { Id = 2, FirstName = "John", LastName = "Doe", LocationX = 100, LocationY = 100, Perimeter = 50, UserId = 3}
         };
     }
 }

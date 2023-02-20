@@ -43,6 +43,16 @@ export class UserService {
     return this.userSource.value;
   }
 
+  getUserHomeUrl(): string {
+    if (this.currentUser && this.currentUser.token && this.currentUser.roles) {
+      if (this.currentUser.roles.includes("DriverUser")) {
+        return '/driver-home'
+      }
+    }
+
+    return '/login';
+  }
+
   login(login: UserLoginForm): Observable<User> {
     const authUrl = 'api/v1/Authorize'
     return this.http.post<User>(authUrl, login, this.httpOptions).pipe(

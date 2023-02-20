@@ -16,9 +16,16 @@ public class AutoMapperProfiles : Profile
         
         // Vehicle mapping
         CreateMap<VehicleDto, DbVehicle>()
-            .ForMember(dest => dest.Type, src => src.MapFrom(i => (int)i.Type));
+            .ForMember(dest => dest.Type, src => src.MapFrom(i => (int)i.Type))
+            .ForMember(dest => dest.LocationX, src => src.MapFrom(i => i.Location.X))
+            .ForMember(dest => dest.LocationY, src => src.MapFrom(i => i.Location.Y));
         CreateMap<DbVehicle, VehicleDto>()
-            .ForMember(dest => dest.Type, src => src.MapFrom(i => (VehicleType)i.Type));
+            .ForMember(dest => dest.Type, src => src.MapFrom(i => (VehicleType)i.Type))
+            .ForMember(dest => dest.Location, src => src.MapFrom(i => new Coordinates()
+            {
+                X = i.LocationX,
+                Y = i.LocationY
+            }));
         
         // Driver mapping
         CreateMap<DriverDto, DbDriver>()

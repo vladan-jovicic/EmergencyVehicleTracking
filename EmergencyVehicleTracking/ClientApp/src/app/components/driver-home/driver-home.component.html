@@ -1,0 +1,27 @@
+<div class="main">
+  <ng-container *ngIf="driverState && driverState.state === 'SelectVehicle'">
+    <h3>Please select vehicle to continue</h3>
+    <div class="flist-holder pt-2 px-3">
+      <table class="table table-hover table-sm text-nowrap table-list">
+        <thead>
+        <tr>
+          <th><div><span>Name</span></div></th>
+          <th><div><span>Registration No.</span></div></th>
+          <th><div><span>Action</span></div></th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngIf="vehicles.length > 0">
+          <tr *ngFor="let vehicle of vehicles">
+            <td>{{vehicle.name}}</td>
+            <td>{{vehicle.registrationNumber}}</td>
+            <td><button type="button" class="btn btn-secondary btn-sm">Select</button></td>
+          </tr>
+        </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="driverState && driverState.state === 'SelectRoute'"></ng-container>
+  <ng-container *ngIf="driverState && driverState.state === 'Driving'"></ng-container>
+</div>

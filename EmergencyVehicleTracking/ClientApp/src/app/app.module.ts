@@ -15,6 +15,10 @@ import { DriverComponent } from './components/driver/driver.component';
 import { ServerDashboardComponent } from './components/server-dashboard/server-dashboard.component';
 import { PatientRouteComponent } from './components/patient-route/patient-route.component';
 import {ServerGuard} from "./infrastructure/server.guard";
+import { DriverHomeComponent } from './components/driver-home/driver-home.component';
+import {DriverGuard} from "./infrastructure/driver.guard";
+import {JwtInterceptor} from "./infrastructure/jwt.interceptor";
+import {AuthenticationInterceptor} from "./infrastructure/authentication.interceptor";
 
 @NgModule({
   declarations: [
@@ -27,7 +31,8 @@ import {ServerGuard} from "./infrastructure/server.guard";
     PatientComponent,
     DriverComponent,
     ServerDashboardComponent,
-    PatientRouteComponent
+    PatientRouteComponent,
+    DriverHomeComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -41,10 +46,13 @@ import {ServerGuard} from "./infrastructure/server.guard";
       { path: 'vehicles', component: VehiclesComponent, canActivate: [ServerGuard] },
       { path: 'patients', component: PatientComponent, canActivate: [ServerGuard] },
       { path: 'drivers', component: DriverComponent, canActivate: [ServerGuard] },
+      { path: 'driver-home', component: DriverHomeComponent, canActivate: [DriverGuard] },
       { path: 'login', component: LoginComponent }
     ])
   ],
   providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })
