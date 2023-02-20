@@ -36,6 +36,7 @@ import { PatientRouteComponent } from './components/patient-route/patient-route.
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'dashboard', component: ServerDashboardComponent },
+      { path: 'requests', component: PatientRouteComponent },
       { path: 'vehicles', component: VehiclesComponent },
       { path: 'patients', component: PatientComponent },
       { path: 'drivers', component: DriverComponent },

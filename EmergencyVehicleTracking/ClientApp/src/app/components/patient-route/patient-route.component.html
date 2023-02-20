@@ -1,1 +1,43 @@
-<p>patient-route works!</p>
+<div class="main">
+  <div class="flist-holder pt-2 px-3">
+    <table class="table table-hover table-sm text-nowrap table-list table-responsive">
+      <thead>
+      <tr>
+        <th><div><span>Patient</span></div></th>
+        <th><div><span>Pick up (x-ccord)</span></div></th>
+        <th><div><span>Pick up (y-coord)</span></div></th>
+        <th><div><span>Drop off (x-coord)</span></div></th>
+        <th><div><span>Drop off (y-coord)</span></div></th>
+        <th><div><span>Status</span></div></th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-container *ngIf="patientRequests.length > 0">
+        <tr *ngFor="let request of patientRequests">
+          <td>{{getPatientName(request.patientId)}}</td>
+          <td>{{request.pickUpLocation.x}}</td>
+          <td>{{request.pickUpLocation.y}}</td>
+          <td>{{request.dropOffLocation.x}}</td>
+          <td>{{request.dropOffLocation.y}}</td>
+          <td>{{request.status}}</td>
+        </tr>
+      </ng-container>
+      <tr>
+        <td>
+          <select class="form-select form-select-sm" #patient (change)="selectPatient(patient.value)">
+            <option *ngFor="let patient of patients" [value]="patient.id" [selected]="patient.id == this.newRequest.patientId">{{getPatientName(patient.id)}}</option>
+          </select>
+        </td>
+        <td><input type="number" [(ngModel)]="newRequest.pickUpLocation.x"></td>
+        <td><input type="number" [(ngModel)]="newRequest.pickUpLocation.y"></td>
+        <td><input type="number" [(ngModel)]="newRequest.dropOffLocation.x"></td>
+        <td><input type="number" [(ngModel)]="newRequest.dropOffLocation.y"></td>
+        <td>{{newRequest.status}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="app-action">
+      <button class="app-add-button" (click)="addNew()">Add new</button>
+    </div>
+  </div>
+</div>

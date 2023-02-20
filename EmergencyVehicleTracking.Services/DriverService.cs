@@ -25,10 +25,10 @@ public class DriverService
         return data.Select(i => _mapper.Map<DriverDto>(i)).ToList();
     }
 
-    public async Task<DriverDto> InsertAsync(DriverDto vehicleDto)
+    public async Task<DriverDto> InsertAsync(DriverDto driver)
     {
-        var dbVehicle = _mapper.Map<DbDriver>(vehicleDto);
-        var insertedVehicle = await _driverRepository.InsertAsync(dbVehicle);
-        return _mapper.Map<DriverDto>(insertedVehicle);
+        var dbDriver = _mapper.Map<DbDriver>(driver);
+        var insertedDriver = await _driverRepository.InsertAsync(dbDriver);
+        return _mapper.Map<DriverDto>(insertedDriver);
     }
 }

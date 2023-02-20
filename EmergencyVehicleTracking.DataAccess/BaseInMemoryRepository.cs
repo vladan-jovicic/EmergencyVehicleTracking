@@ -44,6 +44,7 @@ public class BaseInMemoryRepository<T> where T : DbEntity
         }
 
         item.Id = GetRepositorySequence();
+        item.InsertDate = DateTime.Now;
         data.Add(item);
         _memoryCache.Set(cacheKey, data);
         return true;
