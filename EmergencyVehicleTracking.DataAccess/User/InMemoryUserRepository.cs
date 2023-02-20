@@ -24,4 +24,16 @@ public class InMemoryUserRepository : BaseInMemoryRepository<DbUser>, IUserRepos
         var allUsers = await GetAllAsync();
         return allUsers.FirstOrDefault(i => i.Username == username);
     }
+
+    public override async Task<DbUser> InsertAsync(DbUser user)
+    {
+        // Do not allow two users with same username
+        var allUsers = await GetAllAsync();
+        if (allUsers.Any(i => i.Username == user.Username))
+        {
+            throw new ArgumentOutOfRangeException(nameof(user.Username), "User with such username already exists.");
+        }
+
+        return await base.InsertAsync(user);
+    }
 }

@@ -1,3 +1,4 @@
+using System.Text;
 using EmergencyVehicleTracking.DataAccess.Driver;
 using EmergencyVehicleTracking.DataAccess.Patient;
 using EmergencyVehicleTracking.DataAccess.Requests;
@@ -7,11 +8,36 @@ using EmergencyVehicleTracking.Models.Config;
 using EmergencyVehicleTracking.Models.Mapper;
 using EmergencyVehicleTracking.Services;
 using EmergencyVehicleTracking.Services.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// security
+var jwtSecretToken = builder.Configuration.GetValue<string>($"{nameof(AuthenticationOptions)}:{nameof(AuthenticationOptions.JwtSecurityKey)}");
+var jwtSecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSecretToken));
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(x =>
+{
+    x.RequireHttpsMetadata = true;
+    x.SaveToken = true;
+    x.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = jwtSecurityKey,
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.FromMinutes(1) // TBD if necessary
+    };
+});
+
 
 // infrastructure
 builder.Services.AddControllers();
@@ -66,8 +92,8 @@ else
 app.UseStaticFiles();
 app.UseRouting();
 
-//app.UseAuthentication();
-//app.UseAuthorization();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 

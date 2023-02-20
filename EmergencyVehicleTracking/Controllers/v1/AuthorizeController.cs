@@ -1,12 +1,14 @@
 ﻿using EmergencyVehicleTracking.Models;
-using EmergencyVehicleTracking.Services.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using IAuthorizationService = EmergencyVehicleTracking.Services.Authorization.IAuthorizationService;
 
 namespace EmergencyVehicleTracking.Controllers.v1;
 
 [ApiController]
 [Route("api/v{version:apiVersion}/[controller]")]
 [ApiVersion("1")]
+[AllowAnonymous]
 public class AuthorizeController : ControllerBase
 {
 
