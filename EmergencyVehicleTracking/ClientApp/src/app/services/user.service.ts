@@ -46,7 +46,9 @@ export class UserService {
   getUserHomeUrl(): string {
     if (this.currentUser && this.currentUser.token && this.currentUser.roles) {
       if (this.currentUser.roles.includes("DriverUser")) {
-        return '/driver-home'
+        return '/driver-home';
+      } else {
+        return '/dashboard';
       }
     }
 
@@ -60,6 +62,8 @@ export class UserService {
         if (user && user.token) {
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.userSource.next(user);
+          const nextUri = this.getUserHomeUrl();
+          this.router.navigate([nextUri]);
         }
       })
     );

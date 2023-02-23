@@ -58,8 +58,8 @@ export class LoginComponent implements OnInit {
     const login = this.loginForm.value as UserLoginForm;
     this.userService.login(login).subscribe(
       _ => {
-        const homeUri = this.userService.getUserHomeUrl();
-        this.router.navigate([homeUri]);
+        //const homeUri = this.userService.getUserHomeUrl();
+        //this.router.navigate([homeUri]);
       },
       _ => {
         this.alertService.error('Error logging in.<br>Please check your credentials.', false, true);

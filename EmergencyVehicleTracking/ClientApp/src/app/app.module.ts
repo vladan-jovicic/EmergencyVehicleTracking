@@ -40,7 +40,7 @@ import {AuthenticationInterceptor} from "./infrastructure/authentication.interce
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [DriverGuard, ServerGuard] },
       { path: 'dashboard', component: ServerDashboardComponent, canActivate: [ServerGuard]},
       { path: 'requests', component: PatientRouteComponent, canActivate: [ServerGuard] },
       { path: 'vehicles', component: VehiclesComponent, canActivate: [ServerGuard] },
